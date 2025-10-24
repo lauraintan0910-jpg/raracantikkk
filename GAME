@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tebak Angka</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+      text-align: center;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    h1 {
+      font-size: 2em;
+    }
+
+    #game {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+      display: inline-block;
+    }
+
+    input {
+      padding: 10px;
+      width: 100px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #999;
+      margin-right: 10px;
+      text-align: center;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #message {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div id="game">
+    <h1>🎯 Tebak Angka (1–100)</h1>
+    <input type="number" id="guess" placeholder="Tebakan..." />
+    <button onclick="checkGuess()">Tebak!</button>
+    <p id="message"></p>
+    <p id="attempts"></p>
+  </div>
+
+  <script>
+    let randomNumber = Math.floor(Math.random() * 100) + 1;
+    let attempts = 0;
+
+    function checkGuess() {
+      const guess = parseInt(document.getElementById("guess").value);
+      const message = document.getElementById("message");
+      const attemptsText = document.getElementById("attempts");
+
+      if (isNaN(guess)) {
+        message.textContent = "Masukkan angka yang valid!";
+        return;
+      }
+
+      attempts++;
+
+      if (guess === randomNumber) {
+        message.textContent = `🎉 Selamat! Kamu menebak dengan benar dalam ${attempts} percobaan!`;
+        message.style.color = "green";
+      } else if (guess < randomNumber) {
+        message.textContent = "📉 Terlalu kecil! Coba lagi.";
+        message.style.color = "blue";
+      } else {
+        message.textContent = "📈 Terlalu besar! Coba lagi.";
+        message.style.color = "red";
+      }
+
+      attemptsText.textContent = `Percobaan: ${attempts}`;
+    }
+  </script>
+</body>
+</html>
